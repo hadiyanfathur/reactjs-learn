@@ -6,20 +6,28 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 
-import './index.css';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import './styles/index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { getEnv } from './shared/config'
 
 //redux config && redux dev tools browser
 const composeEnhancers = process.env.NODE_ENV !== 'production' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
-const reducer = combineReducers({});
+const reducer = combineReducers({
+  
+});
 
 //redux && redux-thunk for handle async
 const store = createStore(reducer, composeEnhancers(
   applyMiddleware(thunk)
 ));
+
+//axios config
+axios.defaults.baseURL = getEnv.API_URL;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const app = (
   <Provider store={store}>

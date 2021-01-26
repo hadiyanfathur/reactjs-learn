@@ -1,66 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense, useRef } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from './store/actions';
+import axios from 'axios';
+import { makeStyles } from '@material-ui/styles';
+
+// Component
+import MessagePopUp from './components/MessagePopUp';
+
+const Login = lazy(() => import('./pages/Login'));
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: '#FFFFFF',
+    color: '#333333',
+  },
+}));
 
 const App = () => {
+
+  const classes = useStyles();
+
+  const rootRef = useRef();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root} ref={rootRef}>
+      <Suspense fallback={<div />}>
+        <Login />
+      </Suspense>
     </div>
   );
 }

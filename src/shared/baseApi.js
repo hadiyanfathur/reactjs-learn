@@ -1,4 +1,4 @@
-import getEnv from './config';
+import { getEnv } from './config';
 import axios from 'axios';
 
 export const baseApi = axios.create({
