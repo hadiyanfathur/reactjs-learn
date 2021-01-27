@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useRef, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import EmailIcon from '@material-ui/icons/EmailOutlined';
 import VisibilityIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOffOutlined';
@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import Auth from "../../components/Auth/Auth";
 import AuthForm from "../../components/Auth/AuthForm";
 import { emailRegex } from '../../shared/utility'
-import { showMessage } from '../../store/actions/message';
+import * as actions from '../../store/actions';
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -48,12 +48,14 @@ const Login = () => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
+    //const [loading, setLoading] = useState(false);
 
-    //const { auth, loading } = useSelector(({auth}) => auth);
+    const { authenticated, loading } = useSelector(({ auth }) => auth);
 
     // ref
     const inputRef = useRef();
+
+    const dispatch = useDispatch();
 
     const onChangeEmail = (emailValue) => {
         const valid = emailValue.match(emailRegex);
@@ -64,7 +66,7 @@ const Login = () => {
     }
 
     const onChangePassword = (passwordValue) => {
-        const valid = passwordValue.length > 8;
+        const valid = passwordValue.length > 6;
         setPassword(passwordValue);
         setPasswordError(
             valid ? '' : 'Minimum password length is 8 character'
@@ -73,22 +75,36 @@ const Login = () => {
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
-        setLoading(true);
+        dispatch(actions.auth(email, password));
+        //dispatch(showMessage({ message: 'button pressed success' , variant: 'success'}));
     }
 
     const toogleShowPassword = () => {
         setShowPassword(!showPassword)
     }
 
+    const isButtonDisabled = () => {
+        return !email || !password || emailError !== '' || passwordError !== '' || loading;
+    }
+
+    const onSubmitLogoutHandler = (event) => {
+        event.preventDefault();
+        dispatch(actions.showMessage({ message : "LOGOUT CLICKED", variant : "success"}));
+        dispatch(actions.authLogout());
+        setEmail('');
+        setPassword('');
+    }
+
     return (
         <Auth>
             <AuthForm>
                 <div className="text-center my-32">
-                    <h1>LOGIN PAGES</h1>
+                    <h1>{!authenticated? 'LOGIN PAGES' : 'YOURE LOGIN'} </h1>
                 </div>
                 <div className="w-full">
                     <form className="flex flex-col justify-center w-full" onSubmit={onSubmitHandler}>
                         <div className={clsx(classes.input, 'mb-16')}>
+                        {!authenticated?
                             <TextField
                                 inputRef={inputRef}
                                 value={email}
@@ -111,9 +127,12 @@ const Login = () => {
                                 }}
                                 helperText={emailError}
                                 error={emailError !== ''}
-                            />
+                            /> : null
+                        }   
                         </div>
+                        
                         <div className={clsx(classes.input, 'mb-16')}>
+                        {!authenticated?
                             <TextField
                                 id="user-password"
                                 value={password}
@@ -144,20 +163,37 @@ const Login = () => {
                                 error={passwordError !== ''}
                                 autoComplete="on"
                             />
+                            : null
+                        }
                         </div>
                         <div className={classes.buttonWrapper}>
-                            <Button
-                                disabled={loading}
-                                variant="contained"
-                                color="primary"
-                                className={clsx(classes.button, 'w-full mx-auto mt-16')}
-                                type="submit"
-                            >
-                                {loading ? <CircularProgress
-                                    className={classes.progress}
-                                    size={25}
-                                /> : 'LOGIN'}
-                            </Button>
+                            {!authenticated?
+                                <Button
+                                    disabled={isButtonDisabled()}
+                                    variant="contained"
+                                    color="primary"
+                                    className={clsx(classes.button, 'w-full mx-auto mt-16')}
+                                    type="submit"
+                                >
+                                    {loading ? <CircularProgress
+                                        className={classes.progress}
+                                        size={25}
+                                    /> : 'LOGIN'}
+                                </Button>
+                                :
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={clsx(classes.button, 'w-full mx-auto mt-16')}
+                                    type="button"
+                                    onClick={onSubmitLogoutHandler}
+                                >
+                                    {loading ? <CircularProgress
+                                        className={classes.progress}
+                                        size={25}
+                                    /> : 'Logout'}
+                                </Button>
+                            }
                         </div>
                     </form>
                 </div>

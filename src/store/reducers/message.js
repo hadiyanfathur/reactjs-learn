@@ -5,8 +5,8 @@ const initialState = {
     open: false,
     options: {
         anchorOrigin: {
-            vertical: 'top',
-            horizontal: 'center',
+            vertical: 'bottom',
+            horizontal: 'left',
         },
         autoHideDuration: 5000,
         message: '',
@@ -14,7 +14,7 @@ const initialState = {
     },
 };
 
-const messageShow = (state, action) =>
+const messageShow = (state, action) => 
     updateObject(state, {
         open: true,
         options: {
@@ -23,15 +23,15 @@ const messageShow = (state, action) =>
         },
     });
 
-const messageHide = (state, action) =>
+const messageHide = (state, action) => 
     updateObject(state, {
         open: false,
     });
 
 const message = (state = initialState, action) => {
     switch (action.type) {
-        case actions.MESSAGE_SHOW: return messageShow();
-        case actions.MESSAGE_HIDDEN: return messageHide();
+        case actions.MESSAGE_SHOW: return messageShow(state, action);
+        case actions.MESSAGE_HIDDEN: return messageHide(state, action);
         default: {
             return state;
         }

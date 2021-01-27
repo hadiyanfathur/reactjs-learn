@@ -23,6 +23,10 @@ const App = () => {
 
   const rootRef = useRef();
 
+  const { token } = useSelector(({ auth }) => auth);
+
+  const dispatch = useDispatch();
+
   const location = useLocation();
 
   useEffect(() => {
@@ -30,6 +34,11 @@ const App = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(location)]);
+
+  useEffect(() => {
+    dispatch(actions.authCheck(token));
+
+  }, [token]);
 
   return (
     <div className={classes.root} ref={rootRef}>
