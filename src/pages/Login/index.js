@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import EmailIcon from '@material-ui/icons/EmailOutlined';
 import VisibilityIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOffOutlined';
@@ -9,6 +10,8 @@ import clsx from 'clsx';
 //component import
 import Auth from "../../components/Auth/Auth";
 import AuthForm from "../../components/Auth/AuthForm";
+import { emailRegex } from '../../shared/utility'
+import { showMessage } from '../../store/actions/message';
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
     },
     button: {
-        height: '35px',
+        height: '45px',
         textTransform: 'capitalize',
     },
     progress: {
@@ -29,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '5px',
         left: '50%',
         marginLeft: -12,
+        color: 'primary'
     },
     link: {
         color: 'inherit',
@@ -39,29 +43,57 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
     const classes = useStyles();
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    //const { auth, loading } = useSelector(({auth}) => auth);
 
     // ref
     const inputRef = useRef();
 
-    const onSubmitButtonHandler = (e, loading) => {
-        e.preventDefault();
-        setLoading(!loading);
+    const onChangeEmail = (emailValue) => {
+        const valid = emailValue.match(emailRegex);
+        setEmail(emailValue);
+        setEmailError(
+            !emailValue.length ? 'Email Cannot Be Null' : !valid ? 'Email not Valid' : ''
+        );
+    }
+
+    const onChangePassword = (passwordValue) => {
+        const valid = passwordValue.length > 8;
+        setPassword(passwordValue);
+        setPasswordError(
+            valid ? '' : 'Minimum password length is 8 character'
+        )
+    }
+
+    const onSubmitHandler = (event) => {
+        event.preventDefault();
+        setLoading(true);
+    }
+
+    const toogleShowPassword = () => {
+        setShowPassword(!showPassword)
     }
 
     return (
         <Auth>
             <AuthForm>
                 <div className="text-center my-32">
-                    <h1> LOGIN PAGES</h1>
+                    <h1>LOGIN PAGES</h1>
                 </div>
                 <div className="w-full">
-                    <form className="flex flex-col justify-center w-full">
+                    <form className="flex flex-col justify-center w-full" onSubmit={onSubmitHandler}>
                         <div className={clsx(classes.input, 'mb-16')}>
                             <TextField
                                 inputRef={inputRef}
+                                value={email}
                                 id="email"
-                                onChange={() => { }}
+                                onChange={(e) => { onChangeEmail(e.target.value) }}
                                 variant="outlined"
                                 label={
                                     <div>
@@ -77,56 +109,55 @@ const Login = () => {
                                         </InputAdornment>
                                     ),
                                 }}
-                                helperText={null}
-                                error={null}
+                                helperText={emailError}
+                                error={emailError !== ''}
                             />
                         </div>
                         <div className={clsx(classes.input, 'mb-16')}>
                             <TextField
                                 id="user-password"
-                                value={null}
-                                onChange={() => {}}
+                                value={password}
+                                onChange={(e) => { onChangePassword(e.target.value) }}
                                 variant="outlined"
                                 label={
                                     <div>
                                         Kata Sandi <span className="text-red"> *</span>
                                     </div>
                                 }
-                                type={false ? 'text' : 'password'}
+                                type={showPassword ? 'text' : 'password'}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <Icon
-                                                onClick={null}
+                                                onClick={toogleShowPassword}
                                                 className="cursor-pointer"
                                             >
-                                                        <VisibilityIcon />
+                                                {!showPassword ?
+                                                    <VisibilityOffIcon /> : <VisibilityIcon />
+                                                }
+
                                             </Icon>
                                         </InputAdornment>
                                     ),
                                 }}
-                                helperText={null}
-                                error={null}
+                                helperText={passwordError}
+                                error={passwordError !== ''}
                                 autoComplete="on"
                             />
                         </div>
                         <div className={classes.buttonWrapper}>
                             <Button
-                                disabled={null}
+                                disabled={loading}
                                 variant="contained"
                                 color="primary"
                                 className={clsx(classes.button, 'w-full mx-auto mt-16')}
                                 type="submit"
-                                onClick={(e) => {onSubmitButtonHandler(e, loading)}}
                             >
-                            {loading ? '' : 'LOGIN'}
-                            </Button>
-                            {loading && (
-                                <CircularProgress
+                                {loading ? <CircularProgress
                                     className={classes.progress}
                                     size={25}
-                                    color='#A45FD5'
-                                />)}
+                                /> : 'LOGIN'}
+                            </Button>
                         </div>
                     </form>
                 </div>

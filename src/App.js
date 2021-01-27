@@ -1,5 +1,5 @@
-import React, { lazy, Suspense, useRef } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { lazy, Suspense, useRef, useEffect } from 'react';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from './store/actions';
 import axios from 'axios';
@@ -23,10 +23,21 @@ const App = () => {
 
   const rootRef = useRef();
 
+  const location = useLocation();
+
+  useEffect(() => {
+    rootRef.current.scrollIntoView();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(location)]);
+
   return (
     <div className={classes.root} ref={rootRef}>
       <Suspense fallback={<div />}>
-        <Login />
+        <Route path="/" exact>
+          <Login />
+        </Route>
+        <MessagePopUp />
       </Suspense>
     </div>
   );
