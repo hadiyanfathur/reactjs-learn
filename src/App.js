@@ -1,6 +1,6 @@
-import React, { lazy, Suspense, useRef, useEffect } from 'react';
+import React, { lazy, Suspense, useRef, useEffect, useCallback } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import * as actions from './store/actions';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/styles';
@@ -30,16 +30,15 @@ const App = () => {
 
   const location = useLocation();
 
+  const authCheck = useCallback(() =>  dispatch(actions.authCheck(token)), [dispatch, token]) 
+
   useEffect(() => {
     rootRef.current.scrollIntoView();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(location)]);
 
-  useEffect(() => {
-    dispatch(actions.authCheck(token));
-
-  }, [token]);
+  useEffect(authCheck, [authCheck]);
 
   return (
     <div className={classes.root} ref={rootRef}>
@@ -51,8 +50,8 @@ const App = () => {
           <Route path="/" exact>
             <Dashboard />
           </Route>
-          <MessagePopUp />
         </Switch>
+        <MessagePopUp />
       </Suspense>
     </div>
   );
