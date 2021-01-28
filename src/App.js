@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/styles';
 import MessagePopUp from './components/MessagePopUp';
 
 const Login = lazy(() => import('./pages/Login'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,10 +44,15 @@ const App = () => {
   return (
     <div className={classes.root} ref={rootRef}>
       <Suspense fallback={<div />}>
-        <Route path="/" exact>
-          <Login />
-        </Route>
-        <MessagePopUp />
+        <Switch>
+          <Route path="/Login" exact>
+            <Login />
+          </Route>
+          <Route path="/" exact>
+            <Dashboard />
+          </Route>
+          <MessagePopUp />
+        </Switch>
       </Suspense>
     </div>
   );
