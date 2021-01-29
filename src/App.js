@@ -3,7 +3,7 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from './store/actions';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
 
 // Component
 import MessagePopUp from './components/MessagePopUp';
@@ -40,20 +40,24 @@ const App = () => {
 
     useEffect(authCheck, [authCheck]);
 
+    const theme = useTheme();
+
     return (
-        <div className={classes.root} ref={rootRef}>
-            <Suspense fallback={<div />}>
-                <Switch>
-                    <Route path="/Login" exact>
-                        <Login />
-                    </Route>
-                    <Route path="/" exact>
-                        <Dashboard />
-                    </Route>
-                </Switch>
-                <MessagePopUp />
-            </Suspense>
-        </div>
+        <ThemeProvider theme={theme}>
+            <div className={classes.root} ref={rootRef}>
+                <Suspense fallback={<div />}>
+                    <Switch>
+                        <Route path="/Login" exact>
+                            <Login />
+                        </Route>
+                        <Route path="/" exact>
+                            <Dashboard />
+                        </Route>
+                    </Switch>
+                    <MessagePopUp />
+                </Suspense>
+            </div>
+        </ThemeProvider>
     );
 }
 
