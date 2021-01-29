@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     CssBaseline,
     Typography,
@@ -13,9 +13,9 @@ const Dashboard = ({ children }) => {
 
     const theme = useTheme();
 
-    const [open, setOpen] = React.useState(false);
-    const [tempOpen, setTempOpen] = React.useState(false);
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [open, setOpen] = useState(localStorage.getItem('sidebar'));
+    const [tempOpen, setTempOpen] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleDrawerMobile = (toogle) => (e) => {
         setMobileOpen(toogle);
@@ -24,6 +24,10 @@ const Dashboard = ({ children }) => {
     const handleDrawerToogle = () => {
         setOpen(!open);
         setTempOpen(false);
+        if(!open)
+            localStorage.setItem('sidebar', !open);
+        else
+            localStorage.removeItem('sidebar');
     };
 
     const handleDrawerHover = (toogle) => (e) => {

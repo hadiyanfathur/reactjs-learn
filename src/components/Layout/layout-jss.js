@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         [theme.breakpoints.up('sm')]: {
-            width: `calc(100% - ${theme.spacing(9) + 1}px)`,
+            width: `calc(100% - ${theme.spacing(7) + 1}px)`,
         }
     },
     appBarShift: {
@@ -51,9 +51,8 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: theme.spacing(9) + 1,
+        width: theme.spacing(7) + 1,
         [theme.breakpoints.down('xs')]: {
-            width: theme.spacing(7) + 1,
             display: 'none',
         },
     },
