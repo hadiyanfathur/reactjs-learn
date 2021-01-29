@@ -1,7 +1,7 @@
 import React from 'react';
 import { CssBaseline, Typography, Container } from '@material-ui/core';
 
-const Dashboard = ({children}) => {
+const Dashboard = ({ children }) => {
     return (
         <React.Fragment>
             <CssBaseline />

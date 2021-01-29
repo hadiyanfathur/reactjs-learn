@@ -18,13 +18,13 @@ import { message, auth } from './store/reducers';
 const composeEnhancers = process.env.NODE_ENV !== 'production' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const reducer = combineReducers({
-  message,
-  auth
+    message,
+    auth
 });
 
 //redux && redux-thunk for handle async
 const store = createStore(reducer, composeEnhancers(
-  applyMiddleware(thunk)
+    applyMiddleware(thunk)
 ));
 
 //axios config
@@ -32,11 +32,11 @@ axios.defaults.baseURL = getEnv.API_URL;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const app = (
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
 )
 ReactDOM.render(app, document.getElementById('root'));
 

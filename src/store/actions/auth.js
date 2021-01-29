@@ -26,16 +26,16 @@ export const auth = (email, password) => async (dispatch) => {
     dispatch(authStart());
     const authData = {
         email,
-        password, 
+        password,
         grant_type: 'password'
     };
     const url = '/oauth/token';
     await axios
         .post(url, authData)
         .then((response) => {
-            const { access_token, token_type} = response.data;
+            const { access_token, token_type } = response.data;
             const token = `${token_type} ${access_token}`;
-            
+
             localStorage.setItem('key', token);
             dispatch(authSuccess(token));
         })
@@ -48,13 +48,13 @@ export const auth = (email, password) => async (dispatch) => {
 
 export const authCheck = (token) => {
     let login;
-    try{
+    try {
         const decodedToken = jwtDecode(token);
         login = decodedToken.user.login;
-    } catch(e) {
+    } catch (e) {
         login = false;
     }
-    
+
     return {
         type: actionTypes.AUTH_CHECK,
         authenticated: login

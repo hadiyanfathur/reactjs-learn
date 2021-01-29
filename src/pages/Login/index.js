@@ -89,7 +89,7 @@ const Login = () => {
 
     const onSubmitLogoutHandler = (event) => {
         event.preventDefault();
-        dispatch(actions.showMessage({ message : "LOGOUT CLICKED", variant : "success"}));
+        dispatch(actions.showMessage({ message: "LOGOUT CLICKED", variant: "success" }));
         dispatch(actions.authLogout());
         setEmail('');
         setPassword('');
@@ -99,75 +99,75 @@ const Login = () => {
         <Auth>
             <AuthForm>
                 <div className="text-center my-32">
-                    <h1>{!authenticated? 'LOGIN PAGES' : 'YOURE LOGIN'} </h1>
+                    <h1>{!authenticated ? 'LOGIN PAGES' : 'YOURE LOGIN'} </h1>
                 </div>
                 <div className="w-full">
                     <form className="flex flex-col justify-center w-full" onSubmit={onSubmitHandler}>
                         <div className={clsx(classes.input, 'mb-16')}>
-                        {!authenticated?
-                            <TextField
-                                inputRef={inputRef}
-                                value={email}
-                                id="email"
-                                onChange={(e) => { onChangeEmail(e.target.value) }}
-                                variant="outlined"
-                                label={
-                                    <div>
-                                        Email <span className="text-red"> *</span>
-                                    </div>
-                                }
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <Icon>
-                                                <EmailIcon />
-                                            </Icon>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                helperText={emailError}
-                                error={emailError !== ''}
-                            /> : null
-                        }   
+                            {!authenticated ?
+                                <TextField
+                                    inputRef={inputRef}
+                                    value={email}
+                                    id="email"
+                                    onChange={(e) => { onChangeEmail(e.target.value) }}
+                                    variant="outlined"
+                                    label={
+                                        <div>
+                                            Email <span className="text-red"> *</span>
+                                        </div>
+                                    }
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <Icon>
+                                                    <EmailIcon />
+                                                </Icon>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    helperText={emailError}
+                                    error={emailError !== ''}
+                                /> : null
+                            }
                         </div>
-                        
-                        <div className={clsx(classes.input, 'mb-16')}>
-                        {!authenticated?
-                            <TextField
-                                id="user-password"
-                                value={password}
-                                onChange={(e) => { onChangePassword(e.target.value) }}
-                                variant="outlined"
-                                label={
-                                    <div>
-                                        Kata Sandi <span className="text-red"> *</span>
-                                    </div>
-                                }
-                                type={showPassword ? 'text' : 'password'}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <Icon
-                                                onClick={toogleShowPassword}
-                                                className="cursor-pointer"
-                                            >
-                                                {!showPassword ?
-                                                    <VisibilityOffIcon /> : <VisibilityIcon />
-                                                }
 
-                                            </Icon>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                helperText={passwordError}
-                                error={passwordError !== ''}
-                                autoComplete="on"
-                            />
-                            : null
-                        }
+                        <div className={clsx(classes.input, 'mb-16')}>
+                            {!authenticated ?
+                                <TextField
+                                    id="user-password"
+                                    value={password}
+                                    onChange={(e) => { onChangePassword(e.target.value) }}
+                                    variant="outlined"
+                                    label={
+                                        <div>
+                                            Kata Sandi <span className="text-red"> *</span>
+                                        </div>
+                                    }
+                                    type={showPassword ? 'text' : 'password'}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <Icon
+                                                    onClick={toogleShowPassword}
+                                                    className="cursor-pointer"
+                                                >
+                                                    {!showPassword ?
+                                                        <VisibilityOffIcon /> : <VisibilityIcon />
+                                                    }
+
+                                                </Icon>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    helperText={passwordError}
+                                    error={passwordError !== ''}
+                                    autoComplete="on"
+                                />
+                                : null
+                            }
                         </div>
                         <div className={classes.buttonWrapper}>
-                            {!authenticated?
+                            {!authenticated ?
                                 <Button
                                     disabled={isButtonDisabled()}
                                     variant="contained"

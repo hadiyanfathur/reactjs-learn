@@ -14,7 +14,7 @@ const initialState = {
     },
 };
 
-const messageShow = (state, action) => 
+const messageShow = (state, action) =>
     updateObject(state, {
         open: true,
         options: {
@@ -23,7 +23,7 @@ const messageShow = (state, action) =>
         },
     });
 
-const messageHide = (state, action) => 
+const messageHide = (state, action) =>
     updateObject(state, {
         open: false,
     });
