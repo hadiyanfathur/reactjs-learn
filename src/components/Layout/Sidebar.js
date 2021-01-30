@@ -19,7 +19,7 @@ import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from './layout-jss';
 
-const Sidebar = ({ children, ...props }) => {
+const Sidebar = ( props ) => {
 
     const classes = useStyles();
 
@@ -32,7 +32,8 @@ const Sidebar = ({ children, ...props }) => {
         handleDrawerHover,
         handleDrawerMobile,
         handleDrawerToogle,
-        upSm
+        upSm,
+        children
     } = { ...props };
 
     const drawerOpen = tempOpen || open;
@@ -47,23 +48,6 @@ const Sidebar = ({ children, ...props }) => {
                 </IconButton>)}
             </div>
             <Divider />
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
         </React.Fragment>
     )
 
@@ -86,6 +70,7 @@ const Sidebar = ({ children, ...props }) => {
                 onMouseLeave={handleDrawerHover(false)}
             >
                 {drawerChildren}
+                {children}
             </Drawer>
         )
         : (
@@ -103,6 +88,7 @@ const Sidebar = ({ children, ...props }) => {
                 }}
             >
                 {drawerChildren}
+                {children}
             </SwipeableDrawer>
         )
     )

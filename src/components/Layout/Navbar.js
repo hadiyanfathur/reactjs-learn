@@ -14,17 +14,17 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useStyles from './layout-jss';
 
-const Navbar = ({ children, ...props }) => {
+const Navbar = (props) => {
 
     const classes = useStyles();
 
-    const { handleDrawerMobile, open } = { ...props }
+    const { handleDrawerMobile, open, upSm } = { ...props }
 
     return (
         <AppBar
             position="fixed"
             className={clsx(classes.appBar, {
-                [classes.appBarShift]: open,
+                [classes.appBarShift]: upSm && open,
             })}
         >
             <Toolbar>
@@ -34,7 +34,7 @@ const Navbar = ({ children, ...props }) => {
                     onClick={handleDrawerMobile(true)}
                     edge="start"
                     className={clsx(classes.menuButton, {
-                        [classes.hide]: open,
+                        [classes.hide]: upSm && open,
                     })}
                 >
                     <Menu />

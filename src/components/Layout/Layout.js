@@ -8,6 +8,7 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import SidebarList from '../SidebarList/SidebarList'
 
 const Dashboard = ({ children }) => {
 
@@ -43,6 +44,7 @@ const Dashboard = ({ children }) => {
             <Navbar
                 open={open}
                 handleDrawerMobile={toogle => handleDrawerMobile(toogle)}
+                upSm = {upSm}
             />
             <Sidebar
                 open={open}
@@ -52,9 +54,10 @@ const Dashboard = ({ children }) => {
                 handleDrawerHover={toogle => handleDrawerHover(toogle)}
                 handleDrawerToogle={() => handleDrawerToogle()}
                 upSm = {upSm}
-            />
-            <Container maxWidth="sm">
-
+            >
+                <SidebarList />
+            </Sidebar>
+            <Container maxWidth="lg">
                 {children}
                 <Typography
                     component="div"
