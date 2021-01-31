@@ -3,7 +3,8 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from './store/actions';
 import axios from 'axios';
-import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Theme from './theme/themes';
 
 // Component
 import MessagePopUp from './components/MessagePopUp';
@@ -43,7 +44,7 @@ const App = () => {
     const theme = useTheme();
 
     return (
-        <ThemeProvider theme={theme}>
+        <Theme theme={theme}>
             <div className={classes.root} ref={rootRef}>
                 <Suspense fallback={<div />}>
                     <Switch>
@@ -57,7 +58,7 @@ const App = () => {
                     <MessagePopUp />
                 </Suspense>
             </div>
-        </ThemeProvider>
+        </Theme>
     );
 }
 

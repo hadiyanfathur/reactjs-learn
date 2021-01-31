@@ -1,27 +1,18 @@
 import React from 'react';
 import {
     Drawer,
-    List,
     Divider,
     IconButton,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
     SwipeableDrawer,
     Tooltip
 } from '@material-ui/core';
 import {
-    Inbox,
-    Mail,
     SwapHoriz,
 } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
-import useStyles from './layout-jss';
 
 const Sidebar = ( props ) => {
-
-    const classes = useStyles();
 
     const theme = useTheme();
 
@@ -33,7 +24,8 @@ const Sidebar = ( props ) => {
         handleDrawerMobile,
         handleDrawerToogle,
         upSm,
-        children
+        children,
+        classes,
     } = { ...props };
 
     const drawerOpen = tempOpen || open;
@@ -61,13 +53,14 @@ const Sidebar = ( props ) => {
                     [classes.drawerClose]: drawerClose,
                 })}
                 classes={{
-                    paper: clsx({
+                    paper: clsx(classes.drawer, {
                         [classes.drawerOpen]: drawerOpen,
                         [classes.drawerClose]: drawerClose,
                     }),
                 }}
                 onMouseOver={handleDrawerHover(true)}
                 onMouseLeave={handleDrawerHover(false)}
+                PaperProps={{ elevation: 3 }}
             >
                 {drawerChildren}
                 {children}

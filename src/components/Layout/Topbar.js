@@ -12,13 +12,24 @@ import {
 } from '@material-ui/icons';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import useStyles from './layout-jss';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from '../../store/actions';
 
-const Navbar = (props) => {
+const Topbar = (props) => {
 
-    const classes = useStyles();
+    const { 
+        handleDrawerMobile,
+        handleDarkModeToogle, 
+        open, 
+        upSm, 
+        classes 
+    } = { ...props }
 
-    const { handleDrawerMobile, open, upSm } = { ...props }
+    const { darkMode } = useSelector(({ theme }) => theme);
+
+    // dispatch
+    const dispatch = useDispatch();
 
     return (
         <AppBar
@@ -39,12 +50,22 @@ const Navbar = (props) => {
                 >
                     <Menu />
                 </IconButton>
+                
                 <Typography variant="h6" noWrap>
                     Mini variant drawer
                 </Typography>
+                <IconButton
+                    display="flex"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={() => dispatch(actions.setDarkMode(!darkMode))}
+                    edge="end"
+                >
+                    <Brightness7Icon/>
+                </IconButton>
             </Toolbar>
         </AppBar>
     );
 }
 
-export default React.memo(Navbar);
+export default React.memo(Topbar);

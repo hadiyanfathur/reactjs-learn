@@ -1,13 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, fade } from '@material-ui/core';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
     appBar: {
+        backgroundColor: theme.palette.color.navbar,
+        color: theme.palette.color.navbarText,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -34,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'none',
     },
     drawer: {
-        width: drawerWidth,
+        background: theme.palette.color.sidebar,
         flexShrink: 0,
         whiteSpace: 'nowrap',
     },
@@ -57,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     drawerPaper: {
+        background: theme.palette.primary.main,
         width: drawerWidth,
     },
     toolbar: {
@@ -68,9 +68,34 @@ const useStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
     },
     content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
+        display: 'flex',
+        flex: '1 1 auto',
+        minWidth: '0',
+        flexDirection: 'column',
+        position: 'relative',
+        paddingTop: '56px',
+        minHeight: '100vh',
+        [theme.breakpoints.up('sm')]: {
+            paddingLeft: theme.spacing(7) + 1,
+            paddingTop: '64px',
+        }
+
     },
+    contentShift: {
+        paddingLeft: drawerWidth,
+        transition: theme.transitions.create(['width', 'padding'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    appContent: {
+        padding: '3rem',
+        flex: '1 1',
+    },
+    appFooter: {
+        padding: '.3rem .5rem .5rem .5rem',
+        textAlign: 'center',
+    }
 }));
 
 export default useStyles;

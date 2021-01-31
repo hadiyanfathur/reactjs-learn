@@ -8,3 +8,6 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 // Message
 export const MESSAGE_SHOW = 'MESSAGE_SHOW';
 export const MESSAGE_HIDDEN = 'MESSAGE_HIDDEN';
+
+//Theming
+export const SET_DARK_MODE = 'SET_DARK_MODE';
