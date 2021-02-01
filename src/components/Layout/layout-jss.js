@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     drawerPaper: {
-        background: theme.palette.primary.main,
+        background: theme.palette.color.sidebar,
         width: drawerWidth,
     },
     toolbar: {
@@ -78,8 +78,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             paddingLeft: theme.spacing(7) + 1,
             paddingTop: '64px',
-        }
-
+        },
+        background: theme.palette.background.default,
     },
     contentShift: {
         paddingLeft: drawerWidth,
@@ -89,8 +89,13 @@ const useStyles = makeStyles((theme) => ({
         }),
     },
     appContent: {
-        padding: '3rem',
+        padding: theme.spacing(3),
         flex: '1 1',
+    },
+    appHeader: {
+        margin: theme.spacing(1, 0),
+        minHeight: theme.spacing(16),
+        padding: `${theme.spacing(2)}px 3rem`,
     },
     appFooter: {
         padding: '.3rem .5rem .5rem .5rem',

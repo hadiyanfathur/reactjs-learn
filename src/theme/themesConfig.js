@@ -11,10 +11,10 @@ const themesConfig = {
             },
             secondary: {
                 main: '#55185D',
-                text: '#fff',
+                text: '#rgb(18, 18, 18)',
             },
             background: {
-                default: '#ffffff',
+                default: '#fafafa',
                 paper: '#ffffff',
             },
             text: {
