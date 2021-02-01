@@ -1,8 +1,10 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
+const darkMode = JSON.parse(localStorage.getItem('darkMode'));
+
 const initialState = {
-    darkMode: localStorage.getItem('darkMode') || false,
+    darkMode: darkMode || false,
 };
 
 // dark mode
