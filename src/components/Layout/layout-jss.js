@@ -85,8 +85,7 @@ const useStyles = makeStyles((theme) => ({
         },
         background: theme.palette.background.default,
         transition: theme.transitions.create(['background', 'transform'], {
-            easing: theme.transitions.easing.easeInOut,
-            duration: theme.transitions.duration.leavingScreen,
+            duration: theme.transitions.duration.standard,
         }),
     },
     contentShift: {
@@ -96,8 +95,7 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         transition: theme.transitions.create(['background', 'transform'], {
-            easing: theme.transitions.easing.easeInOut,
-            duration: theme.transitions.duration.leavingScreen,
+            duration: theme.transitions.duration.standard,
         }),
     },
     appContent: {
