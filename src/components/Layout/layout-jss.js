@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.color.sidebar,
         flexShrink: 0,
         whiteSpace: 'nowrap',
+        border: 0,
     },
     drawerOpen: {
         width: drawerWidth,
@@ -59,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
         background: theme.palette.color.sidebar,
         width: drawerWidth,
     },
+    drawerContainer: {
+        overflowY: "auto"
+    },
     toolbar: {
         display: 'flex',
         alignItems: 'center',
@@ -80,12 +84,16 @@ const useStyles = makeStyles((theme) => ({
             paddingTop: '64px',
         },
         background: theme.palette.background.default,
+        transition: theme.transitions.create(['background', 'transform'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     },
     contentShift: {
         paddingLeft: drawerWidth,
         transition: theme.transitions.create(['width', 'padding'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
         }),
     },
     appContent: {

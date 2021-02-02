@@ -14,7 +14,7 @@ const themesConfig = {
                 text: '#rgb(18, 18, 18)',
             },
             background: {
-                default: '#fafafa',
+                default: '#E0F2FE',
                 paper: '#ffffff',
             },
             text: {

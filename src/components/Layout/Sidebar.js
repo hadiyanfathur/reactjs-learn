@@ -4,7 +4,7 @@ import {
     Divider,
     IconButton,
     SwipeableDrawer,
-    Tooltip
+    Tooltip, Paper
 } from '@material-ui/core';
 import {
     SwapHoriz,
@@ -12,7 +12,7 @@ import {
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
 
-const Sidebar = ( props ) => {
+const Sidebar = (props) => {
 
     const theme = useTheme();
 
@@ -33,13 +33,18 @@ const Sidebar = ( props ) => {
 
     const drawerChildren = (
         <React.Fragment>
-            <div className={classes.toolbar}>
+            <Paper className={classes.toolbar} elevation={1} square>
                 {upSm && (<IconButton onClick={handleDrawerToogle}>
-                        {open && <Tooltip title="Collapse Sidebar" arrow placement="right" ><SwapHoriz /></Tooltip> }
-                        {tempOpen && <Tooltip title="Expand Sidebar" arrow placement="right" ><SwapHoriz /></Tooltip> }
+                    {open && <Tooltip title="Collapse Sidebar" arrow placement="right" ><SwapHoriz /></Tooltip>}
+                    {tempOpen && <Tooltip title="Expand Sidebar" arrow placement="right" ><SwapHoriz /></Tooltip>}
                 </IconButton>)}
+            </Paper>
+            <div className={classes.drawerContainer}>
+                {children}
+                {children}
+                {children}
+                {children}
             </div>
-            <Divider />
         </React.Fragment>
     )
 
@@ -60,30 +65,28 @@ const Sidebar = ( props ) => {
                 }}
                 onMouseOver={handleDrawerHover(true)}
                 onMouseLeave={handleDrawerHover(false)}
-                PaperProps={{ elevation: 3 }}
+                PaperProps={{ elevation: 4, variant: 'elevation' }}
             >
                 {drawerChildren}
-                {children}
             </Drawer>
         )
-        : (
-            <SwipeableDrawer
-                variant="temporary"
-                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                open={mobileOpen}
-                onClose={handleDrawerMobile(false)}
-                onOpen={handleDrawerMobile(true)}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-                ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
-                }}
-            >
-                {drawerChildren}
-                {children}
-            </SwipeableDrawer>
-        )
+            : (
+                <SwipeableDrawer
+                    variant="temporary"
+                    anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                    open={mobileOpen}
+                    onClose={handleDrawerMobile(false)}
+                    onOpen={handleDrawerMobile(true)}
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                >
+                    {drawerChildren}
+                </SwipeableDrawer>
+            )
     )
 }
 

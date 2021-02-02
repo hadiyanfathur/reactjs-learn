@@ -4,7 +4,8 @@ const fuseLight = {
     navbarText: 'rgb(18, 18, 18)',
     search: '#fafafa',
 
-    sidebar: '#B1D9F8',
+    //sidebar: '#B1D9F8',
+    sidebar: '#fff',
 
     // footer
     footer: '#55185D',
