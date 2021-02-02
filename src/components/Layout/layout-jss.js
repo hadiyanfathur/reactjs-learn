@@ -85,14 +85,18 @@ const useStyles = makeStyles((theme) => ({
         },
         background: theme.palette.background.default,
         transition: theme.transitions.create(['background', 'transform'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
+            easing: theme.transitions.easing.easeInOut,
+            duration: theme.transitions.duration.leavingScreen,
         }),
     },
     contentShift: {
         paddingLeft: drawerWidth,
         transition: theme.transitions.create(['width', 'padding'], {
             easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        transition: theme.transitions.create(['background', 'transform'], {
+            easing: theme.transitions.easing.easeInOut,
             duration: theme.transitions.duration.leavingScreen,
         }),
     },
