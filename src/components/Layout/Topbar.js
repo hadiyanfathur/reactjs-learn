@@ -1,8 +1,6 @@
 import React from 'react';
 import {
-    CssBaseline,
     Typography,
-    Container,
     AppBar,
     Toolbar,
     IconButton,
@@ -11,19 +9,17 @@ import {
     Menu,
 } from '@material-ui/icons';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
+import { Brightness7, AccountCircle } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 
 const Topbar = (props) => {
 
-    const { 
+    const {
         handleDrawerMobile,
-        handleDarkModeToogle, 
-        open, 
-        upSm, 
-        classes 
+        open,
+        upSm,
+        classes
     } = { ...props }
 
     const { darkMode } = useSelector(({ theme }) => theme);
@@ -50,19 +46,30 @@ const Topbar = (props) => {
                 >
                     <Menu />
                 </IconButton>
-                
+
                 <Typography variant="h6" noWrap>
                     Mini variant drawer
                 </Typography>
-                <IconButton
-                    display="flex"
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={() => dispatch(actions.setDarkMode(!darkMode))}
-                    edge="end"
-                >
-                    <Brightness7Icon/>
-                </IconButton>
+                <div style={{ flexGrow: 1 }}/>
+                <div>
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={() => dispatch(actions.setDarkMode(!darkMode))}
+                    >
+                        <Brightness7 />
+                    </IconButton>
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        color="inherit"
+                        edge="end"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                </div>
             </Toolbar>
         </AppBar>
     );

@@ -34,15 +34,12 @@ const Sidebar = (props) => {
     const drawerChildren = (
         <React.Fragment>
             <Paper className={classes.toolbar} elevation={1} square>
-                {upSm && (<IconButton onClick={handleDrawerToogle}>
+                {upSm && (<IconButton color='inherit' onClick={handleDrawerToogle}>
                     {open && <Tooltip title="Collapse Sidebar" arrow placement="right" ><SwapHoriz /></Tooltip>}
                     {tempOpen && <Tooltip title="Expand Sidebar" arrow placement="right" ><SwapHoriz /></Tooltip>}
                 </IconButton>)}
             </Paper>
             <div className={classes.drawerContainer}>
-                {children}
-                {children}
-                {children}
                 {children}
             </div>
         </React.Fragment>
@@ -65,7 +62,7 @@ const Sidebar = (props) => {
                 }}
                 onMouseOver={handleDrawerHover(true)}
                 onMouseLeave={handleDrawerHover(false)}
-                PaperProps={{ elevation: 4, variant: 'elevation' }}
+                PaperProps={{ elevation: 1, variant: 'elevation' }}
             >
                 {drawerChildren}
             </Drawer>

@@ -24,7 +24,7 @@ const GridItem = (props) => {
             lg={lg || false}
             xl={xl || false}
         >
-            <Paper elevation={4} style={{ padding:theme.spacing(3) }}>
+            <Paper elevation={1} style={{ padding:theme.spacing(3) }}>
                 {children}
             </Paper>
         </Grid>

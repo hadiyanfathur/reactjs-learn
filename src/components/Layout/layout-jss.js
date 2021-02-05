@@ -7,18 +7,19 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         backgroundColor: theme.palette.color.navbar,
         color: theme.palette.color.navbarText,
-        transition: theme.transitions.create(['width', 'margin'], {
+        transition: theme.transitions.create(['width', 'margin','background'], {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
+            duration: theme.transitions.duration.standard,
         }),
         [theme.breakpoints.up('sm')]: {
             width: `calc(100% - ${theme.spacing(7) + 1}px)`,
-        }
+        },
+        backdropFilter: `blur(${theme.spacing(1)}px)`,
     },
     appBarShift: {
         marginLeft: drawerWidth,
         width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
+        transition: theme.transitions.create(['width', 'margin', 'background'], {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
@@ -34,22 +35,25 @@ const useStyles = makeStyles((theme) => ({
     },
     drawer: {
         background: theme.palette.color.sidebar,
+        color: theme.palette.color.sidebarText,
         flexShrink: 0,
         whiteSpace: 'nowrap',
         border: 0,
     },
     drawerOpen: {
         width: drawerWidth,
-        transition: theme.transitions.create('width', {
+        color: theme.palette.color.sidebarText,
+        transition: theme.transitions.create(['width', 'background'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
     drawerClose: {
-        transition: theme.transitions.create('width', {
+        transition: theme.transitions.create(['width', 'background'], {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
+            duration: theme.transitions.duration.standard,
         }),
+        color: theme.palette.color.sidebarText,
         overflowX: 'hidden',
         width: theme.spacing(7) + 1,
         [theme.breakpoints.down('xs')]: {
@@ -58,10 +62,27 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
         background: theme.palette.color.sidebar,
+        color: theme.palette.color.sidebarText,
         width: drawerWidth,
     },
     drawerContainer: {
-        overflowY: "auto"
+        transition: theme.transitions.create('display', {
+            duration: theme.transitions.duration.standard,
+        }),
+        overflowY: "auto",
+        '&::-webkit-scrollbar': {
+            display: 'none',
+        },
+        '-ms-overflow-style': 'none',  /* IE and Edge */
+        'scrollbar-width': 'none',  /* Firefox */
+        "&:hover": {
+            '&::-webkit-scrollbar': {
+                display: 'block',
+            },
+            '-ms-overflow-style': 'auto',  /* IE and Edge */
+            'scrollbar-width': 'auto',  /* Firefox */
+        },
+        
     },
     toolbar: {
         display: 'flex',
@@ -70,6 +91,8 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
+        background: theme.palette.color.sidebar,
+        color: theme.palette.color.sidebarText,
     },
     content: {
         display: 'flex',
@@ -84,23 +107,24 @@ const useStyles = makeStyles((theme) => ({
             paddingTop: '64px',
         },
         background: theme.palette.background.default,
-        transition: theme.transitions.create(['background', 'transform'], {
-            duration: theme.transitions.duration.standard,
+        transition: theme.transitions.create(['background', 'transform', 'width', 'padding'], {
+            duration: theme.transitions.duration.shortest,
         }),
     },
     contentShift: {
         paddingLeft: drawerWidth,
-        transition: theme.transitions.create(['width', 'padding'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        transition: theme.transitions.create(['background', 'transform'], {
+        transition: theme.transitions.create(['width', 'padding', 'background'], {
+            easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.standard,
         }),
     },
     appContent: {
         padding: theme.spacing(3),
         flex: '1 1',
+        transition: theme.transitions.create(['width', 'padding'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.standard,
+        }),
     },
     appHeader: {
         margin: theme.spacing(1, 0),

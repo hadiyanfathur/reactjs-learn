@@ -6,15 +6,15 @@ const themesConfig = {
         palette: {
             type: 'light',
             primary: {
-                main: '#B1D9F8',
-                text: 'rgb(18, 18, 18)',
+                main: '#3226B6',
+                text: '#ffffff',
             },
             secondary: {
-                main: '#55185D',
-                text: '#rgb(18, 18, 18)',
+                main: '#aab626',
+                text: '#ffffff',
             },
             background: {
-                default: '#E0F2FE',
+                default: '#ede7f925',
                 paper: '#ffffff',
             },
             text: {

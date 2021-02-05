@@ -30,8 +30,9 @@ code {
 
 /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 5px;
-  background-color: transparent;
+    width: 8px;
+    height: 6px;
+    background-color: rgba(145, 158, 171, 0.24);
 }
 
 *::-webkit-scrollbar-track {
@@ -39,8 +40,9 @@ code {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #555;
-  border-radius: 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(99, 115, 129, 0.48);
 }
 
 @import 'tailwind.css';

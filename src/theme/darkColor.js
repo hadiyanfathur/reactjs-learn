@@ -1,6 +1,6 @@
 const fuseDark = {
     // navbar
-    navbar: '#1B2836',
+    navbar: '#1B283699',
     navbarText: '#fff',
     search: '#15202b',
 
