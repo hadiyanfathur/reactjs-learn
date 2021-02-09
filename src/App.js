@@ -1,16 +1,13 @@
-import React, { lazy, Suspense, useRef, useEffect, useCallback } from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import React, { Suspense, useRef, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from './store/actions';
-import axios from 'axios';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Theme from './theme/themes';
 
 // Component
 import MessagePopUp from './components/MessagePopUp';
-
-const Login = lazy(() => import('./pages/Login'));
-const Dashboard = lazy(() => import('./pages/Dashboard'));
+import Routes from './routes'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,14 +44,7 @@ const App = () => {
         <Theme theme={theme}>
             <div className={classes.root} ref={rootRef}>
                 <Suspense fallback={<div />}>
-                    <Switch>
-                        <Route path="/Login" exact>
-                            <Login />
-                        </Route>
-                        <Route path="/" exact>
-                            <Dashboard />
-                        </Route>
-                    </Switch>
+                    <Routes />
                     <MessagePopUp />
                 </Suspense>
             </div>
