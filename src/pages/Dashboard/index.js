@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import GridItem from "../../components/Grid/GridItem";
 
 const Dashboard = () => {
-
+    console.log('[DASHBOARD] Rendering');
     const header = ("HELLO WORLD! THIS IS HEADER CONTENT");
     const breadcrumbs = ("Path / to / Breadcrumbs");
     return (

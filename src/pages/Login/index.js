@@ -48,14 +48,16 @@ const Login = () => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    //const [loading, setLoading] = useState(false);
 
     const { authenticated, loading } = useSelector(({ auth }) => auth);
 
-    // ref
     const inputRef = useRef();
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        authenticated && (window.location = '/');
+    }, [authenticated])
 
     const onChangeEmail = (emailValue) => {
         const valid = emailValue.match(emailRegex);
@@ -76,7 +78,6 @@ const Login = () => {
     const onSubmitHandler = (event) => {
         event.preventDefault();
         dispatch(actions.auth(email, password));
-        //dispatch(showMessage({ message: 'button pressed success' , variant: 'success'}));
     }
 
     const toogleShowPassword = () => {

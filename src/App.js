@@ -1,7 +1,5 @@
-import React, { Suspense, useRef, useEffect, useCallback } from 'react';
+import React, { Suspense, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import * as actions from './store/actions';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Theme from './theme/themes';
 
@@ -22,13 +20,7 @@ const App = () => {
 
     const rootRef = useRef();
 
-    const { token } = useSelector(({ auth }) => auth);
-
-    const dispatch = useDispatch();
-
     const location = useLocation();
-
-    const authCheck = useCallback(() => dispatch(actions.authCheck(token)), [dispatch, token])
 
     useEffect(() => {
         rootRef.current.scrollIntoView();
@@ -36,9 +28,9 @@ const App = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [JSON.stringify(location)]);
 
-    useEffect(authCheck, [authCheck]);
-
     const theme = useTheme();
+
+    console.log("[App.js] execute");
 
     return (
         <Theme theme={theme}>

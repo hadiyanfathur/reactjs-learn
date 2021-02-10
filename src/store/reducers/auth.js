@@ -5,7 +5,7 @@ const initialState = {
     token: localStorage.getItem('key'),
     error: null,
     loading: null,
-    authenticated: false,
+    authenticated: null,
 }
 
 const authStart = (state, action) =>
