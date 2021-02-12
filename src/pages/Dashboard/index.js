@@ -1,14 +1,10 @@
 import React from 'react';
-import Layout from '../../components/Layout/Layout'
 import { Typography } from '@material-ui/core';
 import GridItem from "../../components/Grid/GridItem";
 
 const Dashboard = () => {
-    console.log('[DASHBOARD] Rendering');
-    const header = ("HELLO WORLD! THIS IS HEADER CONTENT");
-    const breadcrumbs = ("Path / to / Breadcrumbs");
+    console.log("[Dashboard] Render");
     return (
-        <Layout contentHeader={header} breadcrumbs={breadcrumbs}>
             <GridItem>
                 <Typography paragraph>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -34,7 +30,6 @@ const Dashboard = () => {
                     accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
                 </Typography>
             </GridItem>
-        </Layout>
     );
 }
 

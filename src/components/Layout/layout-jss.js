@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.standard,
         }),
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             width: `calc(100% - ${theme.spacing(7) + 1}px)`,
         },
         backdropFilter: `blur(${theme.spacing(1)}px)`,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         marginRight: 36,
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             display: 'none',
         }
     },
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.color.sidebarText,
         overflowX: 'hidden',
         width: theme.spacing(7) + 1,
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
     },
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         paddingTop: '56px',
         minHeight: '100vh',
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
             paddingLeft: theme.spacing(7) + 1,
             paddingTop: '64px',
         },

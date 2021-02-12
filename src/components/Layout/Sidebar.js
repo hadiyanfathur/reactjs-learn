@@ -23,7 +23,7 @@ const Sidebar = (props) => {
         handleDrawerHover,
         handleDrawerMobile,
         handleDrawerToogle,
-        upSm,
+        upMd,
         children,
         classes,
     } = { ...props };
@@ -34,7 +34,7 @@ const Sidebar = (props) => {
     const drawerChildren = (
         <React.Fragment>
             <Paper className={classes.toolbar} elevation={1} square>
-                {upSm && (<IconButton color='inherit' onClick={handleDrawerToogle}>
+                {upMd && (<IconButton color='inherit' onClick={handleDrawerToogle}>
                     {open && <Tooltip title="Collapse Sidebar" arrow placement="right" ><SwapHoriz /></Tooltip>}
                     {tempOpen && <Tooltip title="Expand Sidebar" arrow placement="right" ><SwapHoriz /></Tooltip>}
                 </IconButton>)}
@@ -45,9 +45,10 @@ const Sidebar = (props) => {
         </React.Fragment>
     )
 
-
+    console.log("[SIDEBAR] ", drawerOpen);
+    
     return (
-        upSm ? (
+        upMd ? (
             <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {

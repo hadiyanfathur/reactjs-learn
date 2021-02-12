@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.text.disabled,
     },
 }));
-
+console.log("not Found");
 const PageNotFound = () => {
     // styles
     const classes = useStyles();

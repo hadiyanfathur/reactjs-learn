@@ -1,39 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
-    Divider,
+    Icon
 } from '@material-ui/core';
-import {
-    Inbox,
-    Mail,
-} from '@material-ui/icons';
+import { NavLink, useLocation } from 'react-router-dom';
+import menu from '../../routes/menu';
 
+const SidebarList = (props) => {
 
-const SidebarList = () => {
+    const location = useLocation();
+
+    const { handleInitialContent } = { ...props }
+
+    const currentMenu = menu.find(menu => location.pathname === menu.path);
+
+    useEffect(() => {
+        currentMenu && handleInitialContent(currentMenu.title, currentMenu.breadcrumbs)
+
+    }, [currentMenu, handleInitialContent])
+
+    const menuMapper = menu.map((menu, index) => {
+        
+        return (
+            <ListItem button component={NavLink} to={menu.path} key={index} activeStyle={{ color: 'yellow', background: '#aab62660' }} exact={menu.path === '/'}>
+                <ListItemIcon style={{ color: 'inherit' }}><Icon>{menu.icons}</Icon></ListItemIcon>
+                <ListItemText primary={menu.title} />
+            </ListItem>
+        );
+    });
 
     return (
-        <React.Fragment>
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon style={{color:'inherit'}}>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon style={{color:'inherit'}}>{index % 2 === 0 ? <Inbox /> : <Mail />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-        </React.Fragment>
+        <List>
+            {menuMapper}
+        </List>
     )
 }
 

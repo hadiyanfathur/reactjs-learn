@@ -18,7 +18,7 @@ const Topbar = (props) => {
     const {
         handleDrawerMobile,
         open,
-        upSm,
+        upMd,
         classes
     } = { ...props }
 
@@ -31,7 +31,7 @@ const Topbar = (props) => {
         <AppBar
             position="fixed"
             className={clsx(classes.appBar, {
-                [classes.appBarShift]: upSm && open,
+                [classes.appBarShift]: upMd && open,
             })}
         >
             <Toolbar>
@@ -41,7 +41,7 @@ const Topbar = (props) => {
                     onClick={handleDrawerMobile(true)}
                     edge="start"
                     className={clsx(classes.menuButton, {
-                        [classes.hide]: upSm && open,
+                        [classes.hide]: upMd && open,
                     })}
                 >
                     <Menu />

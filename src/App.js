@@ -2,6 +2,7 @@ import React, { Suspense, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Theme from './theme/themes';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Component
 import MessagePopUp from './components/MessagePopUp';
@@ -11,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: '#FFFFFF',
         color: '#333333',
+        alignContent:'center',
     },
 }));
 
@@ -22,12 +24,6 @@ const App = () => {
 
     const location = useLocation();
 
-    useEffect(() => {
-        rootRef.current.scrollIntoView();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [JSON.stringify(location)]);
-
     const theme = useTheme();
 
     console.log("[App.js] execute");
@@ -35,7 +31,7 @@ const App = () => {
     return (
         <Theme theme={theme}>
             <div className={classes.root} ref={rootRef}>
-                <Suspense fallback={<div />}>
+                <Suspense fallback={<CircularProgress />}>
                     <Routes />
                     <MessagePopUp />
                 </Suspense>

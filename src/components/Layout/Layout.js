@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import {
     CssBaseline,
     Typography,
-    Container,
-    Box,
     Paper,
-    Grid
+    Grid,
+    Breadcrumbs
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -15,18 +14,23 @@ import SidebarList from '../SidebarList/SidebarList';
 import useStyles from './layout-jss';
 import clsx from "clsx";
 
-const Dashboard = ({ ...props }) => {
+const Dashboard = ({ children, ...rest }) => {
 
     const theme = useTheme();
 
     const classes = useStyles();
 
-    const { children, contentHeader, breadcrumbs } = { ...props };
-
     const [open, setOpen] = useState(localStorage.getItem('sidebar'));
     const [tempOpen, setTempOpen] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode'));
+    const [contentHeader, setContentHeader] = useState(''); 
+    const [breadcrumbs, setBreadcrumbs] = useState('');
+
+    const handleInitialContent = (contentHeader, breadcrumbs) => {
+        setBreadcrumbs(breadcrumbs);
+        setContentHeader(contentHeader);
+    }
 
     const handleDrawerMobile = (toogle) => (e) => {
         setMobileOpen(toogle);
@@ -44,6 +48,8 @@ const Dashboard = ({ ...props }) => {
     const handleDrawerHover = (toogle) => (e) => {
         if (!open)
             setTempOpen(toogle);
+
+            console.log("[Layout] open? " + tempOpen);
     };
 
     const handleDarkModeToogle = () => {
@@ -54,8 +60,8 @@ const Dashboard = ({ ...props }) => {
             localStorage.removeItem('darkMode');
     }
 
-    const upSm = useMediaQuery(theme.breakpoints.up('sm'));
-
+    const upMd = useMediaQuery(theme.breakpoints.up('md'));
+    
     return (
         <React.Fragment>
             <CssBaseline />
@@ -66,23 +72,26 @@ const Dashboard = ({ ...props }) => {
                 handleDrawerMobile={toogle => handleDrawerMobile(toogle)}
                 handleDrawerHover={toogle => handleDrawerHover(toogle)}
                 handleDrawerToogle={() => handleDrawerToogle()}
-                upSm={upSm}
+                upMd={upMd}
                 classes={classes}
             >
-                <SidebarList />
+                <SidebarList handleInitialContent={
+                    (contentHeader, breadcrumbs) => handleInitialContent(contentHeader, breadcrumbs)
+                    }/>
             </Sidebar>
             <Topbar
                 open={open}
                 handleDrawerMobile={toogle => handleDrawerMobile(toogle)}
-                upSm={upSm}
+                upMd={upMd}
                 classes={classes}
                 handleDarkModeToogle={() => handleDarkModeToogle()}
             />
             <main
                 className={clsx(classes.content, {
-                    [classes.contentShift]: upSm && open,
+                    [classes.contentShift]: upMd && open,
                 })}
             >
+                 
                 <Paper className={classes.appHeader} elevation={0} square>
                     <Typography variant="h4" component="h1">
                         {contentHeader}
@@ -91,6 +100,7 @@ const Dashboard = ({ ...props }) => {
                         {breadcrumbs}
                     </Typography>
                 </Paper>
+                
                 <div className={classes.appContent}>
                     <Grid container spacing={3}>
                         {children}
