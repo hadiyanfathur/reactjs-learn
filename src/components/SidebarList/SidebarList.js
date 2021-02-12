@@ -25,8 +25,20 @@ const SidebarList = (props) => {
     const menuMapper = menu.map((menu, index) => {
         
         return (
-            <ListItem button component={NavLink} to={menu.path} key={index} activeStyle={{ color: 'yellow', background: '#aab62660' }} exact={menu.path === '/'}>
-                <ListItemIcon style={{ color: 'inherit' }}><Icon>{menu.icons}</Icon></ListItemIcon>
+            <ListItem 
+                button 
+                component={NavLink} 
+                to={menu.path} 
+                key={index} 
+                activeStyle={{ 
+                    color: 'yellow', 
+                    background: '#aab62660' 
+                }} 
+                exact={menu.path === '/'}
+            >
+                <ListItemIcon style={{ color: 'inherit' }}>
+                    <Icon>{menu.icons}</Icon>
+                </ListItemIcon>
                 <ListItemText primary={menu.title} />
             </ListItem>
         );

@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../Layout/Layout'
-import { Grid, Paper, useTheme } from '@material-ui/core';
+import { Grid, Card, useTheme } from '@material-ui/core';
 
 const GridItem = ({children, ...rest}) => {
 
@@ -11,9 +11,9 @@ const GridItem = ({children, ...rest}) => {
             item
             {...rest}
         >
-            <Paper elevation={1} style={{ padding:theme.spacing(3) }}>
+            <Card >
                 {children}
-            </Paper>
+            </Card>
         </Grid>
     );
 }
