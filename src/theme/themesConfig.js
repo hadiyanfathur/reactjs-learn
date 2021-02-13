@@ -14,7 +14,7 @@ const themesConfig = {
                 text: '#ffffff',
             },
             background: {
-                default: '#ede7f925',
+                default: '#fafafa',
                 paper: '#ffffff',
             },
             text: {
@@ -28,6 +28,9 @@ const themesConfig = {
         },
         typography: {
             fontSize: 20,
+        },
+        shape: {
+            borderRadius: 8,
         },
     },
     dark: {
@@ -56,6 +59,9 @@ const themesConfig = {
         },
         typography: {
             fontSize: 20,
+        },
+        shape: {
+            borderRadius: 8,
         },
     },
 };

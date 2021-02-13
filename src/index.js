@@ -12,7 +12,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { getEnv } from './shared/config';
-import { message, auth, theme } from './store/reducers';
+import { message, auth, theme, movies } from './store/reducers';
 
 //redux config && redux dev tools browser
 const composeEnhancers = process.env.NODE_ENV !== 'production' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
@@ -21,6 +21,7 @@ const reducer = combineReducers({
     message,
     auth,
     theme,
+    movies,
 });
 
 //redux && redux-thunk for handle async

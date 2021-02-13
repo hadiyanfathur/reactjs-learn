@@ -1,6 +1,7 @@
 import React, { lazy, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
+import { baseApi } from '../shared/baseApi';
 
 import * as actions from '../store/actions';
 import PrivateRoute from "../routes/privateRoute"
@@ -20,20 +21,48 @@ const Routes = () => {
     const authCheck = useCallback(() => dispatch(actions.authCheck(token)), [dispatch, token]);
 
     useEffect(() => {
-        authCheck(); 
-        console.log('[ROUTES] useEffect') 
+        authCheck();
+        console.log('[ROUTES] useEffect')
     }, [authCheck]);
+
+    baseApi.interceptors.request.use(
+        (config) => {
+            if (token) {
+                config.headers['Authorization'] = token;
+            }
+
+            return config;
+        },
+        (error) => {
+            Promise.reject(error);
+        }
+    );
+
+    baseApi.interceptors.response.use(
+        (response) => {
+            return Promise.resolve(response);
+        },
+        (error) => {
+            if (
+                (error.response.status === 401 || error.response.status === '401')
+            ) {
+                localStorage.removeItem("key");
+                window.location = "/"
+            }
+            return Promise.reject(error);
+        }
+    );
 
     console.log("[ROUTES] Rendering..");
 
     return (
         <React.Fragment>
             <Switch>
-                <Route path="/login" exact render={() => <Login />}/>
-                <PrivateRoute path="/" authenticated={authenticated} exact component={Dashboard}/>
-                <PrivateRoute path="/movies" authenticated={authenticated} exact component={Movies}/>
-                <PrivateRoute path="/actors" authenticated={authenticated} exact component={Actors}/>
-                <Route path="*" render={() => <NotFound />}/>
+                <Route path="/login" exact render={() => <Login />} />
+                <PrivateRoute path="/" authenticated={authenticated} exact component={Dashboard} />
+                <PrivateRoute path="/movies" authenticated={authenticated} exact component={Movies} />
+                <PrivateRoute path="/actors" authenticated={authenticated} exact component={Actors} />
+                <Route path="*" render={() => <NotFound />} />
             </Switch>
         </React.Fragment>
     );
