@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { 
     CardHeader, 
@@ -13,6 +13,7 @@ import {
  } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import GridCard from "../../components/Grid/GridCard";
+import GridItem from "../../components/Grid/GridItem";
 import * as actions from '../../store/actions';
 
 const Movies = () => {
@@ -60,6 +61,17 @@ const Movies = () => {
     
     return (
         <React.Fragment>
+            <Grid item container >
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        elevation={4}
+                        component={NavLink} 
+                        to='/movies/create'
+                    >
+                        Add Movie
+                    </Button>
+            </Grid>
             {data && !error ? 
                 ( data.length ? data.map((mov, index) => (
                     <GridCard sm={6} xs={12} md={4} key={index}>
@@ -92,9 +104,9 @@ const Movies = () => {
                     </GridCard>
                 )
             : 
-                    <GridCard xs={12}>
+                    <GridItem xs={12}>
                         SomeThingWrong
-                    </GridCard>
+                    </GridItem>
             }
             {data && !error && data.length && (page < totalPage) ?
                 <Grid item container xs={12} justify='center'>
