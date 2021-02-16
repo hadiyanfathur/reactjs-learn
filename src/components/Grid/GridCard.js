@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../Layout/Layout'
 import { Grid, Card, useTheme } from '@material-ui/core';
 
-const GridItem = ({children, ...rest}) => {
+const GridCard = ({children, ...rest}) => {
 
     const theme = useTheme();
 
@@ -11,11 +11,11 @@ const GridItem = ({children, ...rest}) => {
             item
             {...rest}
         >
-            <Card >
+            <Card elevation={1}>
                 {children}
             </Card>
         </Grid>
     );
 }
 
-export default React.memo(GridItem);
+export default React.memo(GridCard);

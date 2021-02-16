@@ -15,12 +15,14 @@ const moviesStart = (state, action) =>
 
 const moviesSuccess = (state, action) =>
     updateObject(state, {
-        data: state.data.length ? action.data.data : [...state.data, ...action.data.data],
+        data: !state.data.length ? action.data.data : [...state.data, ...action.data.data],
+        count: action.data.count,
     })
 
 const moviesFail = (state, action) =>
     updateObject(state, {
         error: action.error,
+        count: 0,
     })
 
 const reducer = (state = initialState, action) => {

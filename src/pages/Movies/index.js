@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { 
@@ -8,10 +8,11 @@ import {
     CardContent,
     Typography,
     Button,
-    CardActions
+    CardActions,
+    Grid
  } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import GridCard from "../../components/Grid/GridItem";
+import GridCard from "../../components/Grid/GridCard";
 import * as actions from '../../store/actions';
 
 const Movies = () => {
@@ -19,51 +20,96 @@ const Movies = () => {
 
     const [page, setPage] = useState(1);
     const [params, setParams] = useState(null);
+    const [totalPage, setTotalPage] = useState(1);
 
     const location = useLocation();
 
     const dispatch = useDispatch();
 
-    const { count, data } = useSelector(({ movies }) => movies)
+    const { count, data, loading, error } = useSelector(({ movies }) => movies)
+
+    const fetchMovies = useCallback(() => {
+            const params = new URLSearchParams(location.search);
+            
+            dispatch(actions.fetchMovies({
+                page,
+                pageLength: DEFAULT_PAGE_LENGTH,
+            }))
+            console.log('[MOVIE] Rendering');
+            setParams(params);
+        },
+        [location, page, dispatch],
+    )
     
-    console.log('[MOVIE] Rendering');
+    useEffect(() => {
+        fetchMovies();
+    }, [fetchMovies])
 
     useEffect(() => {
-        const params = new URLSearchParams(location.search);
+        if (!count) {
+            return setTotalPage(0);
+        }
+        const totalPage = Math.ceil(count / DEFAULT_PAGE_LENGTH);
+        setTotalPage(totalPage);
         
-        dispatch(actions.fetchMovies({
-            page,
-            pageLength: DEFAULT_PAGE_LENGTH,
-        }))
+    }, [count]);
 
-        setParams(params);
-    }, [location, page, dispatch])
+    const showMoreOnClicked = () => {
+        setPage(page + 1);
+    }
     
     return (
-        <GridCard sm={6} xs={12} md={4}>
-            <CardHeader
-                avatar={
-                    <Avatar aria-label="recipe" >
-                        H
-                    </Avatar>
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVert />
-                    </IconButton>
-                }
-                title="Hadiyan Fathur Rahman"
-                subheader="September 14, 2016"
-            />
-            <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    This Movie
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">show details</Button>
-            </CardActions>
-        </GridCard>
+        <React.Fragment>
+            {data && !error ? 
+                ( data.length ? data.map((mov, index) => (
+                    <GridCard sm={6} xs={12} md={4} key={index}>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="recipe" >
+                                    H
+                                </Avatar>
+                            }
+                            action={
+                                <IconButton aria-label="settings">
+                                    <MoreVert />
+                                </IconButton>
+                            }
+                            title={mov.title}
+                            subheader="September 14, 2016"
+                        />
+                        <CardContent>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                This Movie
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small">show details</Button>
+                        </CardActions>
+                    </GridCard>
+                ))
+                    : <GridCard xs={12}>
+                        EMPTY DATA
+                    </GridCard>
+                )
+            : 
+                    <GridCard xs={12}>
+                        SomeThingWrong
+                    </GridCard>
+            }
+            {data && !error && data.length && (page < totalPage) ?
+                <Grid item container xs={12} justify='center'>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={showMoreOnClicked}
+                    >
+                        Show More
+                    </Button>
+                </Grid>
+                : null
+            }
+            
+        </React.Fragment>
     );
 }
 
