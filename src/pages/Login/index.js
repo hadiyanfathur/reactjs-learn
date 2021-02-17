@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '5px',
         left: '50%',
         marginLeft: -12,
-        color: 'primary'
+        color: theme.palette.primary.main
     },
     link: {
         color: 'inherit',

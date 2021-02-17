@@ -1,8 +1,10 @@
-import React, { Suspense, useRef, useEffect } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Theme from './theme/themes';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
+import "moment/locale/id";
 
 // Component
 import MessagePopUp from './components/MessagePopUp';
@@ -11,7 +13,7 @@ import Routes from './routes'
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: '#FFFFFF',
-        color: '#333333',
+        color: theme.palette.text.primary,
         alignContent:'center',
     },
 }));
@@ -22,21 +24,17 @@ const App = () => {
 
     const rootRef = useRef();
 
-    const location = useLocation();
-
-    const theme = useTheme();
-
     console.log("[App.js] execute");
 
     return (
-        <Theme theme={theme}>
+        <MuiPickersUtilsProvider utils={MomentUtils} locale={'id'}>
             <div className={classes.root} ref={rootRef}>
                 <Suspense fallback={<CircularProgress />}>
                     <Routes />
                     <MessagePopUp />
                 </Suspense>
             </div>
-        </Theme>
+        </MuiPickersUtilsProvider>
     );
 }
 

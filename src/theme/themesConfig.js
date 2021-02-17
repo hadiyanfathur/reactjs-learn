@@ -49,8 +49,8 @@ const themesConfig = {
                 paper: '#1B2836',
             },
             text: {
-                primary: '#fff',
-                secondary: '#fff',
+                primary: '#ffffff',
+                secondary: '#ffffff',
                 disabled: 'rgb(157, 157, 157)',
             },
             color: {

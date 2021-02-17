@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
+import Theme from './theme/themes';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './styles/index.css';
@@ -35,9 +36,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 const app = (
     <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <Theme theme={theme}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Theme>
     </Provider>
 )
 ReactDOM.render(app, document.getElementById('root'));

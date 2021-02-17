@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     loginWrapper: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: theme.palette.background.default,
         minHeight: '100vh',
 
         maxWidth: 375,

@@ -9,11 +9,11 @@ const GridCard = ({children, ...rest}) => {
     return (
         <Grid
             item
+            component={Card}
+            elevation={1}
             {...rest}
         >
-            <Card elevation={1}>
-                {children}
-            </Card>
+            {children}
         </Grid>
     );
 }

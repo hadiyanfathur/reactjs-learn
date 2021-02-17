@@ -2,18 +2,23 @@ import React from 'react';
 import Layout from '../Layout/Layout'
 import { Grid, Paper, useTheme } from '@material-ui/core';
 
-const GridItem = ({children, ...rest}) => {
+const GridItem = ({children, style, ...rest}) => {
 
     const theme = useTheme();
+
+    const styles = {
+        padding : theme.spacing(3),
+        ...style
+    }
 
     return (
         <Grid
             item
+            component={Paper}
+            style={styles}
             {...rest}
         >
-            <Paper elevation={1} style={{ padding:theme.spacing(3) }}>
-                {children}
-            </Paper>
+            {children}
         </Grid>
     );
 }
