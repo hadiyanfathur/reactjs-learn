@@ -34,7 +34,7 @@ const Movies = () => {
             
             dispatch(actions.fetchMovies({
                 page,
-                pageLength: DEFAULT_PAGE_LENGTH,
+                per_page: DEFAULT_PAGE_LENGTH,
             }))
             console.log('[MOVIE] Rendering');
             setParams(params);

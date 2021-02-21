@@ -15,7 +15,7 @@ const moviesStart = (state, action) =>
 
 const moviesSuccess = (state, action) =>
     updateObject(state, {
-        data: !state.data.length ? action.data.data : [...state.data, ...action.data.data],
+        data: action.page <= 1 ? action.data.data : [...state.data, ...action.data.data],
         count: action.data.count,
     })
 

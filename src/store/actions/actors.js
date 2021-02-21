@@ -1,3 +1,4 @@
+import React from 'react'
 import { getCollectionApi } from '../../shared/baseApi'
 import * as actionTypes from './actionTypes';
 
@@ -5,9 +6,10 @@ export const moviesStart = () => ({
     type: actionTypes.MOVIE_START
 });
 
-export const moviesSuccess = (data, page) => ({
+export const moviesSuccess = (data) => ({
     type: actionTypes.MOVIE_SUCCESS,
-    data, page
+    data,
+
 });
 
 export const moviesFail = (error) => ({
@@ -20,13 +22,14 @@ export const fetchMovies = ({
 }) => async (dispatch) => {
     dispatch(moviesStart());
     await getCollectionApi('/movies', {
-        ...query
+        page: query.page,
+        per_page: query.pageLength,
     })
     .then((res) => {
         const data = {
             ...res.data,
         };
-        dispatch(moviesSuccess(data, query.page));
+        dispatch(moviesSuccess(data));
     })
     .catch((err) => {
         dispatch(
